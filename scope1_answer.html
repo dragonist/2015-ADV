@@ -20,11 +20,44 @@ ul li {width:100px;height:100px;outline:1px solid gray;display:inline-block;line
 		var listLI = document.querySelectorAll("ul > li");
 		var listLILength = listLI.length;
 			for(var i=0; i<listLILength; i++) {
+				(function(i){
+					listLI[i].addEventListener("click", function(e) {
+						e.target.style.backgroundColor = aColor[i];
+					});
+				})(i);
+			}
+	})();
+
+	//이렇게 해도 됨.
+	/*
+	(function() {
+		var listLI = document.querySelectorAll("ul > li");
+		var listLILength = listLI.length;
+			for(var i=0; i<listLILength; i++) {
+				(function(){
+					var j=i;
 					listLI[i].addEventListener("click", function(e) {
 						e.target.style.backgroundColor = aColor[j];
 					});
+				})();
 			}
 	})();
+	*/
+
+	//이렇게 해도 됨.
+	/*
+	(function() {
+		var listLI = document.querySelectorAll("ul > li");
+		var listLILength = listLI.length;
+			for(var i=0; i<listLILength; i++) {
+					listLI[i].addEventListener("click", (function(){ 
+						var j=i;
+						return (function(e) {e.target.style.backgroundColor = aColor[j];});
+					})());
+			}
+	})();
+	*/
+	
 </script>
 </body>
 </html>
