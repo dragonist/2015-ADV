@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quiz2</title>
+<style type="text/css" media="screen">
+
+body,div,ul,li {margin:0;padding:0;}
+li {list-style:none}
+
+
+#tab-ui {
+	height : 400px;
+	margin:20px auto;
+	width : 403px;
+}
+
+#tab-ui ul{
+	border-bottom: 1px solid silver;
+  	cursor: pointer;
+  	overflow: hidden;
+  	padding: 5px 0px 10px;
+}
+
+#tab-ui li {
+	float:left;
+	padding : 5px 0px;
+	text-align:center;
+	width : 100px;
+	border-right: 1px solid rgb(238,238,238);
+}
+
+#tab-ui li:last-child{
+	border-right:0;
+}
+
+#tab-ui > .tab-content > div {
+	box-sizing: border-box;
+	color:#fff;
+	height: 250px;
+	width: 100%;
+	display: none;
+  	padding: 20px;
+}
+
+#tab-ui > .tab-content > div:nth-child(1) {
+	background-color:  rgb(93, 201, 129);
+}
+#tab-ui > .tab-content > div:nth-child(2) {
+	background-color:  rgb(201, 93, 93);
+}
+#tab-ui > .tab-content > div:nth-child(3) {
+	background-color:  rgb(93, 97, 201);
+}
+#tab-ui > .tab-content > div:nth-child(4) {
+	background-color:  rgb(178, 171, 82);
+}
+
+.tab-title-selected {
+	background-color : rgb(231, 231, 231);
+}
+
+#tab-ui > .tab-content > div.tab-content-selected {
+	display: block;
+}
+
+
+	
+</style>
+</head>
+
+<body>
+
+<div id="tab-ui">
+	<ul>
+		<li class="tab-title-selected">UI</li>
+		<li>Server</li>
+		<li>Game</li>
+		<li>Mobile</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-content-selected">
+			<h3>WEB UI Programming</h3>
+			<div>세상에 없는 웹프론트엔드 개발자를 양성합니다.</div>
+		</div>
+		<div >
+			<h3>Web Server Programming</h3>
+			<div>자바지기님처럼 훌륭한 서버개발자를 양성합니다.</div>
+		</div>
+		<div>
+			<h3>Game Programming</h3>
+			<div>대한민국의 게임을 이끌 수 있는 개발자를 양성합니다.</div>
+		</div>
+		<div>
+			<h3>Mobile Programmer</h3>
+			<div>모바일 개발의 지옥을 극복할 수 있는 개발자를 양성합니다.</div>
+		</div>
+	</div>
+</div>
+
+<script>
+/**
+ * 아래의 결과가 나오도록 코드를 작성하세요.
+ */
+
+ 	function MyTab(elBase) {
+ 		this.elBase = document.querySelector(elBase);
+ 		//아래 코드는 element list 값을 배열로 변환하는 방식입니다. Array.prototype.slice.call()과 같은 결과입니다.
+ 		this.aElListLI = [].slice.call(this.elBase.querySelectorAll("li"));
+ 		this.aElListContent = [].slice.call(this.elBase.querySelectorAll(".tab-content > div"));
+ 		this.registerEvents();
+ 		this.nIndex = 0;
+ 	}
+
+ 	MyTab.prototype.registerEvents = function() {
+ 		var elUL = this.elBase.querySelector("ul");
+ 		elUL.addEventListener("click", function(e){
+ 			this.toggleTitle(e.target);
+ 			this.toggleContent(this.nIndex);
+ 		}.bind(this)); //bind 는 아직 우리가 모릅니다만.. 이걸 안쓰게되면 콜백함수의 this는 elUL을 가리킵니다.
+ 	};
+
+ 	MyTab.prototype.toggleContent = function() {
+ 		var sC = this.CLASSNAME.content;
+		this.aElListContent.forEach(function(v,i){
+			if(i === this.nIndex) v.classList.add(sC);
+			else v.classList.remove(sC);
+		});
+ 	};
+
+ 	MyTab.prototype.toggleTitle = function(_el) {
+		var sT = this.CLASSNAME.title;
+		if(_el.nodeName !== "LI") return;
+		_el.classList.add(sT);
+
+		this.aElListLI.forEach(function(v,i){
+			if(v === _el) this.nIndex = i;
+			else v.classList.remove(sT);
+		});
+ 	};
+
+ 	MyTab.prototype.CLASSNAME = {
+ 		title : "tab-title-selected",
+ 		content : "tab-content-selected"
+ 	};
+ 
+	window.addEventListener("DOMContentLoaded", function() {
+		var oMyTab = new MyTab("#tab-ui");
+
+	});
+</script>
+
+</body>
+</html>
