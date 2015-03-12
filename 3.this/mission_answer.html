@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>3.11미션2</title>
+<style type="text/css" media="screen">
+	#mywrap {
+	  width : 100px;
+	  outline: 1px solid gray;
+	  height : 100px;
+	}
+</style>
+
+<body>
+	<button id="mywrap"></button>
+</body>
+
+<script>
+function Button(sSelector, aColor) {
+  this.elBase = document.querySelector(sSelector);
+  this.aColor = aColor || ["red", "green", "blue"];
+  this.nLen = this.aColor.length;
+  this.init();
+}
+
+Button.prototype.init = function() {
+  this.elBase.addEventListener("click", function(ev) {
+	this.changeBGColor();
+  }.bind(this));
+};
+
+Button.prototype.changeBGColor = function() {
+
+  if(this.nTime) clearInterval(this.nTime);
+  
+  var nIndex = myUtil.getRandomNumber.call(this);
+
+  myUtil.setCSSStyle(this.elBase, {
+        "backgroundColor" : this.aColor[nIndex],
+        "opacity"         : 0
+        });
+
+  this.nTime = setInterval(function() {
+  	  var _nPre = parseFloat(this.elBase.style.opacity);
+  	  if(_nPre > 1.0) clearInterval(this.nTime);
+	  this.elBase.style.opacity = _nPre + 0.05;
+  }.bind(this), 100);
+};
+
+
+//Utility methods
+var myUtil = {
+  getRandomNumber : function() {
+   	return Math.floor(Math.random() * this.nLen);
+  },
+  setCSSStyle : function(ele, htStyle) {
+    for(var key in htStyle) {
+      ele.style[key]= htStyle[key];
+    }
+  }
+};
+
+//service Code
+var oB = new Button("#mywrap", ["red", "blue", "orange", "pink"]);	
+</script>
+
+</html>
