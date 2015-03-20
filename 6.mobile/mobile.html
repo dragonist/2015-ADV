@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<title></title>
+
+
+<style type="text/css">
+body{
+	margin:0;
+	font-size: 13pt;
+  	line-height: 1.5;
+}
+.container {
+	background:#fff;
+	border:0;width:100%;
+	display:none;
+}
+#view {
+	width:100%;
+	position:relative;
+}
+
+#flicking-area, .flick-content {
+	width : 100%;
+}
+#flicking-area {
+	left : -100%;
+	position: relative;
+}
+.flick-content {
+	float : left;
+	overflow: hidden;
+	position: absolute;
+	top:0;
+	left:0;
+	height:100%;
+	-webkit-transition-property: -webkit-transform;
+	transition-property:-webkit-transform;
+	-webkit-transition-duration:0ms;
+	transition-duration: 0ms;
+}
+.main {background-color: green; } .left {background-color: red; } .right {background-color: blue; }
+</style>
+
+<body>
+<div id="container">
+	<div id="view" style="overflow:hidden;height:600px;">
+		<div id="flicking-area" style="-webkit-transition-property:-webkit-transform; transition-property: -webkit-transform; -webkit-transition-duration: 0ms; transition-duration: 0ms; -webkit-transform: translate3d(0%, 0px, 0px);">
+			<div class="left flick-content" style="-webkit-transform: translate3d(0%, 0px, 0px);"></div>
+			<div class="main flick-content" style="-webkit-transform: translate3d(100%, 0px, 0px);"></div>
+			<div class="right flick-content" style="-webkit-transform: translate3d(200%, 0px, 0px);"></div>
+		</div>
+	
+</div>
+	
+<script src="mobile.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
