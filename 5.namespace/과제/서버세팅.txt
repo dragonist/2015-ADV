@@ -1,0 +1,104 @@
+개발서버 Ubuntu 12.04.1 LTS
+
+1. 첫 접속
+ssh root@125.209.195.85
+
+2. 첫 접속후 새로운 사용자를 생성하였습니다.
+adduser jado
+
+3. root 비밀번호를 변경하였습니다
+passwd
+
+4. sudo apt-get upgrade
+5. sudo apt-get update
+
+6. JDK 설치
+apt-get을 통해 Sun JDK를 쉽게 설치할 수 있게 해주던 repository의 지원이 중단되었기 때문에 apt-get으로 JDK를 쉽게 다운로드 받을 수 있도록 새로운 repository를 추가해준다
+
+그런데 새로운 repository를 추가하기 위해서 add-apt-repository명령어를 사용하여야 하는데 이 명령어가 사용되지 않으므로 add-apt-repository를 사용할 수 있도록 해주는 프로그램을 먼저 설치한다 
+apt-get install python-software-properties 
+
+설치후 
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+
+sudo apt-get install oracle-java8-installer
+입력후 분홍색 경고창 같은 것이 표시되어도 당황하지 말고 OK 선택
+(라이선스 정책 동의)
+
+Java가 잘 설치되었는지 확인
+java -version
+
+7. Maven 설치
+sudo apt-get install maven
+
+Maven이 잘 설치되었는지 확인 
+mvn -v
+
+8. git 설치
+sudo apt-get install git
+
+git이 잘 설치되었는지 확인
+git —version
+
+9. 톰캣 설치
+http://tomcat.apache.org/ 접속
+Download로 이동 (우리는 8.0 설치할 것임)
+
+Binary Distributions -> Core -> tar.gz 에서 오른쪽 클릭하여 링크 추출
+(http://mirror.apache-kr.org/tomcat/tomcat-8/v8.0.20/bin/apache-tomcat-8.0.20.tar.gz)
+
+jado 계정의 Home에 (Home접근은 cd ~)가서
+
+wget http://mirror.apache-kr.org/tomcat/tomcat-8/v8.0.20/bin/apache-tomcat-8.0.20.tar.gz
+(지금 현재 위치에 apache-tomcat 파일을 다운로드 해주세요)
+
+압축을 풉니다
+tar -xvzf apache-tomcat-8.0.20.tar.gz
+
+안예쁜 tomcat 폴더명을 이쁘게 바꿉니다 (싫어요 -> 경륜)
+
+
+톰캣이 정상적으로 실행되는지 확인해 봅시다
+톰캣홈/bin/startup.sh
+
+아이피:8080 로 접속 -> 접속 안됨
+방화벽 의심
+
+9.1 방화벽 설정
+sudo ufw allow 80 -> 80포트를 엽니다 (잉 근데 열려있네)
+다시 닫습니다
+sudo ufw delete allow 80 -> 80포트 허용한 설정을 삭제합니다
+
+sudo ufw status -> 20, 80, 443포트만 열려있는 포트임을 확인 합니다
+
+443은 뭐하는 건가요?
+https 통신을 위한 기본 포트 번호
+
+8080으로 들어가 봅니다
+안들어가집니다
+
+8080을 엽니다
+sudo ufw allow 8080
+
+ip:8080접속 -> 고양이가 떠요
+톰캣은 잘 도는것 같습니다
+
+ㅠㅠ 근데 교수님이 8080은 열지 말래요
+8080을 닫습니다
+sudo ufw delete allow 8080
+
+톰캣보고 8080으로 인식하지 말고 80으로 인식하게 한다
+/apache-tomcat-8.0.20/conf 여기서 server.xml 을 열고
+8080을 80 으로 바꾼다.
+
+톰캣 재실행 후 접속 확인
+
+10. mysql 설치
+
+sudo apt-get install mysql-server
+mysql -u root -p
+create database jado_dev;
+create user 'jado_developer'@'localhost' identified by 'passwd'
+grant all on jado_dev.* to 'jado_developer'@'localhost';
+flush privileges;

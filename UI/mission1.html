@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quiz2</title>
+</head>
+
+<body>
+<script>
+/**
+ * 아래의 결과가 나오도록 코드를 작성하세요.
+ */
+ 
+(function() {
+	window.addEventListener("DOMContentLoaded", function() {
+		
+		function MyTODO () {
+			this.workList = [];
+		}
+		MyTODO.prototype.addWork = function (work) {
+			this.workList.push(work);
+		}
+		MyTODO.prototype.getWorkList = function() {
+			return this.workList;
+		};
+		MyTODO.prototype.deleteWork = function(work) {
+			this.workList = this.workList.filter(function (element) {
+				if(element === work){
+					return false;
+				}else{
+					return true;
+				}
+			})
+		};
+		
+		// console.log에 다음처럼 두 번의 결과가 나와야 합니다.
+		var oMT = new MyTODO();
+		oMT.addWork("study");
+		oMT.addWork("meeting");
+		oMT.addWork("study C++");
+		oMT.addWork("study JAVASCRIPT");
+		console.log(oMT.getWorkList());    //["study", "meeting", "study C++", "study JAVASCRIPT"] 
+		oMT.deleteWork("study C++");
+		console.log(oMT.getWorkList());    //["study", "meeting", "study JAVASCRIPT"] 
+	});
+})();
+</script>
+
+</body>
+</html>

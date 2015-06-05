@@ -1,0 +1,14 @@
+http://www.lezhin.com/	lc
+
+http://order.checkout.naver.com/home npm
+
+
+commonjs
+requirejs
+
+nodejs에서도 씀
+
+조각조각 나눠진 모듈
+
+쟈스민 qunit
+사실 단위테스트 잘않함

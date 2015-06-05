@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>quiz2</title>
+<style type="text/css" media="screen">
+body,div,ul,li {margin:0;padding:0;}
+li {list-style:none}
+#tab-ui {
+	height : 400px;
+	margin:20px auto;
+	width : 403px;
+}
+#tab-ui ul{
+	border-bottom: 1px solid silver;
+  	cursor: pointer;
+  	overflow: hidden;
+  	padding: 5px 0px 10px;
+}
+#tab-ui li {
+	float:left;
+	padding : 5px 0px;
+	text-align:center;
+	width : 100px;
+	border-right: 1px solid rgb(238,238,238);
+}
+#tab-ui li:last-child{
+	border-right:0;
+}
+#tab-ui > .tab-content > div {
+	box-sizing: border-box;
+	color:#fff;
+	height: 250px;
+	width: 100%;
+	display: none;
+  	padding: 20px;
+}
+#tab-ui > .tab-content > div:nth-child(1) {
+	background-color:  rgb(93, 201, 129);
+}
+#tab-ui > .tab-content > div:nth-child(2) {
+	background-color:  rgb(201, 93, 93);
+}
+#tab-ui > .tab-content > div:nth-child(3) {
+	background-color:  rgb(93, 97, 201);
+}
+#tab-ui > .tab-content > div:nth-child(4) {
+	background-color:  rgb(178, 171, 82);
+}
+.tab-title-selected {
+	background-color : rgb(231, 231, 231);
+}
+#tab-ui > .tab-content > div.tab-content-selected {
+	display: block;
+}
+	
+</style>
+
+</head>
+
+<body>
+
+<div id="tab-ui">
+	<ul>
+		<li class="tab-title-selected">UI</li>
+		<li>Server</li>
+		<li>Game</li>
+		<li>Mobile</li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-content-selected">
+			<h3>WEB UI Programming</h3>
+			<div>세상에 없는 웹프론트엔드 개발자를 양성합니다.</div>
+		</div>
+		<div >
+			<h3>Web Server Programming</h3>
+			<div>자바지기님처럼 훌륭한 서버개발자를 양성합니다.</div>
+		</div>
+		<div>
+			<h3>Game Programming</h3>
+			<div>대한민국의 게임을 이끌 수 있는 개발자를 양성합니다.</div>
+		</div>
+		<div>
+			<h3>Mobile Programmer</h3>
+			<div>모바일 개발의 지옥을 극복할 수 있는 개발자를 양성합니다.</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	
+	// (function() {
+	// 	var elUL = document.querySelector("#tab-ui");
+	// 	elUL.addEventListener("click", function(e) {
+	// 		if(e.target.nodeName!=="LI") return;
+	// 		var elLast1 = document.querySelector(".tab-title-selected");
+	// 		var elLast2 = document.querySelector(".tab-content-selected");
+
+	// 		elLast1.classList.remove("tab-title-selected");
+	// 		elLast2.classList.remove("tab-content-selected");
+
+	// 		e.target.classList.add("tab-title-selected");
+
+	// 		for (var i = 1; i <5; i++) {
+	// 			var elLI = document.querySelector("li:nth-child("+i+")");
+	// 			if(elLI.classList.contains("tab-title-selected")){
+	// 				var elDiv = document.querySelector(".tab-content > div:nth-child("+i+")");
+	// 				elDiv.classList.add("tab-content-selected")
+	// 			}
+	// 		};
+
+	// 	});
+	// }());
+
+	//아래의 결과가 나오도록 MyTab생성자와 prototype을 완성하세요.
+	//위의 HTML,CSS를 수정하지 않고 JavaScript만 추가합니다.
+	//DEMO 동영상 : https://www.youtube.com/watch?v=bgP3U1_BVJo
+	window.addEventListener("DOMContentLoaded", function() {
+		var oMyTab = new MyTab("#tab-ui");
+		oMyTab.register();
+	});
+
+	function MyTab (tab) {
+		this.ul =  document.querySelector(tab);
+	}
+	MyTab.prototype.register = function () {
+		this.ul.addEventListener("click", function(e) {
+			if(e.target.nodeName!=="LI") return;
+			var elLast1 = document.querySelector(".tab-title-selected");
+			var elLast2 = document.querySelector(".tab-content-selected");
+
+			elLast1.classList.remove("tab-title-selected");
+			elLast2.classList.remove("tab-content-selected");
+
+			e.target.classList.add("tab-title-selected");
+
+			for (var i = 1; i <5; i++) {
+				var elLI = document.querySelector("li:nth-child("+i+")");
+				if(elLI.classList.contains("tab-title-selected")){
+					var elDiv = document.querySelector(".tab-content > div:nth-child("+i+")");
+					elDiv.classList.add("tab-content-selected")
+					return;
+				}
+			};
+
+		});
+
+	}
+</script>
+
+</body>
+</html>
